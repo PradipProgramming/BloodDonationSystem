@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+class BloodDonationSystem {
+    private static Scanner scanner = new Scanner(System.in);
+    private static int totalBlood = 0;
+    private static int[] bloodStock = new int[8];
+
+    public static void main(String[] args) {
+        System.out.println("***** Blood Donation Management System *****\n");
+        showMenu();
+    }
+
+    private static void showMenu() {
+        int choice;
+        do {
+            System.out.println("1. Donate Blood");
+            System.out.println("2. Check Blood Stock");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    donateBlood();
+                    break;
+                case 2:
+                    checkBloodStock();
+                    break;
+                case 3:
+                    System.out.println("Exiting the program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please enter a valid option.\n");
+                    break;
+            }
+        } while (choice != 3);
+    }
+
+    private static void donateBlood() {
+        System.out.println("\n----- Donate Blood -----");
+        System.out.println("1. A+  2. A-  3. B+  4. B-  5. AB+  6. AB-  7. O+  8. O-");
+        System.out.print("Enter your blood group (1-8): ");
+        int bloodGroup = scanner.nextInt();
+
+        if (bloodGroup >= 1 && bloodGroup <= 8) {
+            System.out.print("Enter the number of blood bags to donate: ");
+            int bagsToDonate = scanner.nextInt();
+
+            if (bagsToDonate > 0) {
+                bloodStock[bloodGroup - 1] += bagsToDonate;
+                totalBlood += bagsToDonate;
+                System.out.println("Thank you for donating " + bagsToDonate + " bags of blood.");
+            } else {
+                System.out.println("Invalid number of bags to donate!");
+            }
+        } else {
+            System.out.println("Invalid blood group entered!");
+        }
+        System.out.println();
+    }
+
+    private static void checkBloodStock() {
+        System.out.println("\n----- Check Blood Stock -----");
+        System.out.println("Total blood bags available: " + totalBlood);
+        System.out.println("A+ : " + bloodStock[0] + "  A- : " + bloodStock[1] + "  B+ : " + bloodStock[2] + "  B- : " + bloodStock[3]);
+        System.out.println("AB+ : " + bloodStock[4] + "  AB- : " + bloodStock[5] + "  O+ : " + bloodStock[6] + "  O- : " + bloodStock[7]);
+        System.out.println();
+    }
+}
